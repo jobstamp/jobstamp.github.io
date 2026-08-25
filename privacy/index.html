@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JobStamp Privacy Policy</title>
+<meta name="description" content="Privacy policy for the JobStamp GPS timestamp camera and field-report app for Android.">
+<style>
+  :root{
+    --bg:#ffffff; --fg:#1a1c1e; --muted:#5b6167; --rule:#e3e6e9;
+    --link:#0b57d0; --card:#f6f8fa;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#121417; --fg:#e6e8ea; --muted:#a2a9b0; --rule:#2a2f34;
+           --link:#8ab4f8; --card:#1a1e22; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       -webkit-text-size-adjust:100%}
+  .wrap{max-width:760px;margin:0 auto;padding:32px 20px 72px}
+  header{border-bottom:1px solid var(--rule);padding-bottom:20px;margin-bottom:28px}
+  .brand{font-weight:700;letter-spacing:.04em;font-size:13px;color:var(--muted);
+         text-transform:uppercase;margin:0 0 10px}
+  h1{font-size:29px;line-height:1.25;letter-spacing:-.02em;margin:0 0 12px}
+  h2{font-size:20px;line-height:1.3;letter-spacing:-.01em;margin:38px 0 10px;
+     padding-top:18px;border-top:1px solid var(--rule)}
+  .eff{display:inline-block;background:var(--card);border:1px solid var(--rule);
+       border-radius:999px;padding:5px 13px;font-size:14px;color:var(--muted)}
+  p{margin:0 0 14px}
+  a{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+  footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--rule);
+         font-size:14px;color:var(--muted)}
+  code{background:var(--card);border:1px solid var(--rule);border-radius:4px;
+       padding:1px 5px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="brand">JobStamp for Android</p>
+  <h1>Privacy Policy</h1>
+  <span class="eff">Effective date: 25 August 2026</span>
+</header>
+
+<p>JobStamp is a GPS timestamp camera and field-report app. This Privacy Policy
+explains what stays on your device and what is sent to service providers when
+you use network-backed features.</p>
+
+<h2>Information stored on your device</h2>
+<p>JobStamp stores photos, stamped copies, PDF reports, location evidence, and
+project data on your device. JobStamp has no server of its own and does not
+upload your photos, reports, or project content. It has no account system,
+advertising SDK, or general-purpose analytics SDK.</p>
+<p>Cloud backup of JobStamp app data is disabled. Android may copy app data during
+a direct device-to-device migration to a new phone; that is not an upload to a
+JobStamp server.</p>
+
+<h2>Location, address, and map requests</h2>
+<p>If you grant location permission while the camera is open, JobStamp obtains a
+device location fix. To produce an address, it may pass the full latitude and
+longitude to Android's platform Geocoder. The Geocoder may use a network-backed
+system implementation. A three-decimal grid cell is used only to cache the
+result; it does not round the coordinates before the live Geocoder request.</p>
+<p>JobStamp also prefetches map images while a location session is active. It
+passes the full coordinates to a map renderer centered at zoom level 17. On
+the OpenFreeMap/OpenStreetMap path, the requested style and tile addresses
+reveal the small map area around that location. On a build configured with a
+Google Maps key and a device with Google Play Services, JobStamp first uses the
+Google Maps SDK for Android. If that Google render fails, JobStamp may request
+the same area from OpenFreeMap as a fallback, so both providers can be contacted
+during one render attempt.</p>
+<p>The map-stamp setting controls whether a map image is used in the stamp. In the
+current version it does not stop background map prefetch while the camera has
+an active location session. Separately, opening a photo or project map requests
+OpenFreeMap tiles for the stored photo/project area and lets you pan and zoom.
+You can prevent new camera-location, reverse-geocode, and prefetch requests by
+denying or revoking location permission. Avoid opening map screens if you do
+not want stored location areas sent to the tile service.</p>
+<p>Map and Geocoder providers receive network information such as an IP address.
+The Google Maps SDK also automatically collects request and device metadata,
+SDK/build information, stack traces and crash metrics from SDK code, an
+Internal Usage Attribution Identifier, and a Maps SDK-specific pseudonymous
+identifier. Because JobStamp invokes the Map Camera APIs, Google may also
+collect map camera events. Google states that it uses these data to maintain
+and improve Google services.</p>
+<p>Google's current Maps Platform terms state that Google receives and may retain
+IP addresses and latitude/longitude coordinates and that Google and the app
+publisher act under controller-to-controller data protection terms. Use of
+Google Maps features is also subject to the
+<a href="https://maps.google.com/help/terms_maps/">Google Maps End User Additional Terms</a>
+and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
+<p>OpenFreeMap states that its normal server logs exclude IP addresses, but that
+it may temporarily log IP addresses during a security incident for up to 30
+days; anonymized server logs may be retained indefinitely. See the
+<a href="https://openfreemap.org/privacy/">OpenFreeMap Privacy Policy</a>.</p>
+
+<h2>Billing and subscriptions</h2>
+<p>If you buy or restore a subscription, Google Play processes the payment.
+JobStamp uses RevenueCat to validate subscription status. RevenueCat receives
+the Google Play purchase token and an anonymous app user ID and retains purchase
+information needed to validate and restore entitlement status. JobStamp does
+not give RevenueCat a JobStamp account name, email address, or photo/project
+content.</p>
+<p>RevenueCat's privacy policy is available at
+<a href="https://www.revenuecat.com/privacy">www.revenuecat.com/privacy</a>.</p>
+
+<h2>Crash and diagnostic information</h2>
+<p>JobStamp does not include a dedicated crash-reporting SDK. However, when the
+Google Maps SDK is invoked, that SDK may collect stack traces for crashes in
+SDK code, crash metrics, diagnostics, request/device metadata, and its
+pseudonymous SDK identifier as described above. Separately, standard Google
+Play system reporting (Play Vitals) may provide Google with crash or ANR
+statistics from devices whose users enabled Android usage and diagnostics
+sharing.</p>
+<p>For more information, see the
+<a href="https://developers.google.com/maps/documentation/android-sdk/play-data-disclosure">Maps SDK data disclosure</a>
+and <a href="https://support.google.com/googleplay/android-developer/answer/9859174">Google Play crash and ANR help</a>.</p>
+
+<h2>Retention and deletion</h2>
+<p>On the free tier, JobStamp keeps photo originals on the device for at least 7
+days after capture and removes an original only after its stamped copy has been
+saved to the device gallery. Pro keeps originals on the device. You can delete
+local data with JobStamp's deletion controls or remove the app and its private
+data by uninstalling it.</p>
+<p>For a request concerning billing data held through RevenueCat or data that we
+can reasonably link to JobStamp's provider records, contact
+<a href="mailto:jobstampapp@gmail.com">jobstampapp@gmail.com</a>. We will process a verifiable
+request where identification is possible. Google and OpenFreeMap also apply their
+own retention and deletion rules; their policies linked above explain the rights
+and controls they offer.</p>
+
+<h2>Children</h2>
+<p>JobStamp is not directed at children.</p>
+
+<h2>Changes to this policy</h2>
+<p>We may update this Privacy Policy when JobStamp's data practices change. We
+will post the updated policy at
+<a href="https://jobstamp.github.io/privacy/">https://jobstamp.github.io/privacy/</a> and update the effective date.</p>
+
+<h2>Contact</h2>
+<p>For privacy questions or deletion requests, contact
+<a href="mailto:jobstampapp@gmail.com">jobstampapp@gmail.com</a>.</p>
+
+<footer>
+  JobStamp — Android package <code>com.jobstamp.android</code> ·
+  <a href="../">Home</a>
+</footer>
+</div>
+</body>
+</html>
