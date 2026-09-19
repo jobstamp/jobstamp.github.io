@@ -40,7 +40,7 @@
 <header>
   <p class="brand">JobStamp for Android</p>
   <h1>Privacy Policy</h1>
-  <span class="eff">Effective date: 25 August 2026</span>
+  <span class="eff">Effective date: 20 September 2026</span>
 </header>
 
 <p>JobStamp is a GPS timestamp camera and field-report app. This Privacy Policy
@@ -51,7 +51,9 @@ you use network-backed features.</p>
 <p>JobStamp stores photos, stamped copies, PDF reports, location evidence, and
 project data on your device. JobStamp has no server of its own and does not
 upload your photos, reports, or project content. It has no account system,
-advertising SDK, or general-purpose analytics SDK.</p>
+advertising SDK, or general-purpose analytics SDK. The only optional upload is
+the Google Drive copy described below, which happens only if you connect your
+own Google account.</p>
 <p>Cloud backup of JobStamp app data is disabled. Android may copy app data during
 a direct device-to-device migration to a new phone; that is not an upload to a
 JobStamp server.</p>
@@ -62,21 +64,19 @@ device location fix. To produce an address, it may pass the full latitude and
 longitude to Android's platform Geocoder. The Geocoder may use a network-backed
 system implementation. A three-decimal grid cell is used only to cache the
 result; it does not round the coordinates before the live Geocoder request.</p>
-<p>JobStamp also prefetches map images while a location session is active. It
-passes the full coordinates to a map renderer centered at zoom level 17. On
-the OpenFreeMap/OpenStreetMap path, the requested style and tile addresses
-reveal the small map area around that location. On a build configured with a
-Google Maps key and a device with Google Play Services, JobStamp first uses the
-Google Maps SDK for Android. If that Google render fails, JobStamp may request
-the same area from OpenFreeMap as a fallback, so both providers can be contacted
-during one render attempt.</p>
-<p>The map-stamp setting controls whether a map image is used in the stamp. In the
-current version it does not stop background map prefetch while the camera has
-an active location session. Separately, opening a photo or project map requests
-OpenFreeMap tiles for the stored photo/project area and lets you pan and zoom.
-You can prevent new camera-location, reverse-geocode, and prefetch requests by
-denying or revoking location permission. Avoid opening map screens if you do
-not want stored location areas sent to the tile service.</p>
+<p>JobStamp can also prefetch a small map image while a location session is
+active so the stamp and the report cover can carry a map. On a build configured
+with a Google Maps key and a device with Google Play Services, it passes the
+full coordinates to the Google Maps SDK for Android, centered at zoom level 17.
+No other map or tile provider is contacted; if the Google Maps SDK is
+unavailable, JobStamp renders no map at all.</p>
+<p>The map setting in "Stamp &amp; content" controls this: when the map is turned
+off, JobStamp neither prefetches nor renders map images for the stamp.
+Separately, opening a photo or project map screen renders the stored
+photo/project area with the Google Maps SDK and lets you pan and zoom. You can
+prevent new camera-location, reverse-geocode, and map requests by denying or
+revoking location permission, and you can avoid opening map screens if you do
+not want stored location areas sent to Google.</p>
 <p>Map and Geocoder providers receive network information such as an IP address.
 The Google Maps SDK also automatically collects request and device metadata,
 SDK/build information, stack traces and crash metrics from SDK code, an
@@ -90,10 +90,25 @@ publisher act under controller-to-controller data protection terms. Use of
 Google Maps features is also subject to the
 <a href="https://maps.google.com/help/terms_maps/">Google Maps End User Additional Terms</a>
 and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
-<p>OpenFreeMap states that its normal server logs exclude IP addresses, but that
-it may temporarily log IP addresses during a security incident for up to 30
-days; anonymized server logs may be retained indefinitely. See the
-<a href="https://openfreemap.org/privacy/">OpenFreeMap Privacy Policy</a>.</p>
+
+<h2>Google Drive (optional, Pro)</h2>
+<p>Pro subscribers can connect their own Google Drive account from Settings &rarr;
+Storage. Nothing is uploaded unless you connect an account. When you do,
+JobStamp asks Google only for the <code>drive.file</code> permission, which
+lets it create and update the files it creates itself and gives it no access to
+the rest of your Drive. JobStamp then copies stamped photos and PDF reports into
+a <code>JobStamp/&lt;project&gt;/</code> folder in your Drive, directly from
+your device to Google's servers over an encrypted connection. JobStamp has no
+server of its own in this path and never receives your files or your Google
+credentials; the access token Google issues stays in the app's memory.</p>
+<p>Uploads run while the app is open and, by default, only on Wi-Fi. Deleting a
+photo in JobStamp does not delete the copy in your Drive. You can disconnect at
+any time from the same screen, which clears the connection and the upload queue
+on the device; to withdraw the permission on Google's side, remove JobStamp
+under <a href="https://myaccount.google.com/permissions">Google Account &rarr;
+Third-party access</a>. Files stored in your Drive are governed by the
+<a href="https://policies.google.com/privacy">Google Privacy Policy</a> and
+Google Drive's own terms.</p>
 
 <h2>Billing and subscriptions</h2>
 <p>If you buy or restore a subscription, Google Play processes the payment.
@@ -126,9 +141,9 @@ data by uninstalling it.</p>
 <p>For a request concerning billing data held through RevenueCat or data that we
 can reasonably link to JobStamp's provider records, contact
 <a href="mailto:jobstampapp@gmail.com">jobstampapp@gmail.com</a>. We will process a verifiable
-request where identification is possible. Google and OpenFreeMap also apply their
-own retention and deletion rules; their policies linked above explain the rights
-and controls they offer.</p>
+request where identification is possible. Google also applies its own retention
+and deletion rules; its policies linked above explain the rights and controls it
+offers.</p>
 
 <h2>Children</h2>
 <p>JobStamp is not directed at children.</p>
