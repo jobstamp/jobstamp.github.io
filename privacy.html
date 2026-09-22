@@ -25,6 +25,7 @@
   h1{font-size:29px;line-height:1.25;letter-spacing:-.02em;margin:0 0 12px}
   h2{font-size:20px;line-height:1.3;letter-spacing:-.01em;margin:38px 0 10px;
      padding-top:18px;border-top:1px solid var(--rule)}
+  h3{font-size:17px;line-height:1.35;margin:26px 0 8px}
   .eff{display:inline-block;background:var(--card);border:1px solid var(--rule);
        border-radius:999px;padding:5px 13px;font-size:14px;color:var(--muted)}
   p{margin:0 0 14px}
@@ -40,123 +41,195 @@
 <header>
   <p class="brand">JobStamp for Android</p>
   <h1>Privacy Policy</h1>
-  <span class="eff">Effective date: 20 September 2026</span>
+  <span class="eff">Effective date: 22 September 2026</span>
 </header>
-
 <p>JobStamp is a GPS timestamp camera and field-report app. This Privacy Policy
 explains what stays on your device and what is sent to service providers when
 you use network-backed features.</p>
-
 <h2>Information stored on your device</h2>
 <p>JobStamp stores photos, stamped copies, PDF reports, location evidence, and
-project data on your device. JobStamp has no server of its own and does not
-upload your photos, reports, or project content. It has no account system,
-advertising SDK, or general-purpose analytics SDK. The only optional upload is
-the Google Drive copy described below, which happens only if you connect your
-own Google account.</p>
-<p>Cloud backup of JobStamp app data is disabled. Android may copy app data during
-a direct device-to-device migration to a new phone; that is not an upload to a
-JobStamp server.</p>
-
+project data on your device. JobStamp has no server of its own and never uploads
+your photos, reports, or project content to one. It has no account system and no
+advertising SDK, and it shows no ads. It does send anonymous usage statistics
+and crash reports, which are described under "Usage statistics and crash
+reports" below; those never contain your photos, your location, or anything you
+typed.</p>
+<p>If you choose to connect Google Drive (see "Google Drive" below), JobStamp
+uploads stamped photos and PDF reports to <em>your own</em> Google Drive
+account. That is the only case in which content leaves your device
+automatically, it happens only after you connect it yourself, and it stops the
+moment you disconnect.</p>
+<h3>Staff names</h3>
+<p>JobStamp lets you keep a list of the people who use this phone and pick which
+one is taking the next photo. That list is stored on your device only; JobStamp
+never sends it anywhere. The name you pick is frozen onto each photo you take,
+so it appears in the photos, PDF reports and data files <strong>you</strong>
+choose to share or export, and — if you connected Google Drive — in the copies
+uploaded to your own Drive account. Removing a name from the list stops it being
+offered; it does not change the photos already taken with it. JobStamp has no
+accounts, no sign-in and no way to verify who anybody is: a staff name is a
+label you chose, not an identity we confirmed.</p>
+<p>Cloud backup of JobStamp app data is disabled. Android may copy app data
+during a direct device-to-device migration to a new phone; that is not an upload
+to a JobStamp server.</p>
 <h2>Location, address, and map requests</h2>
 <p>If you grant location permission while the camera is open, JobStamp obtains a
 device location fix. To produce an address, it may pass the full latitude and
 longitude to Android's platform Geocoder. The Geocoder may use a network-backed
 system implementation. A three-decimal grid cell is used only to cache the
 result; it does not round the coordinates before the live Geocoder request.</p>
-<p>JobStamp can also prefetch a small map image while a location session is
-active so the stamp and the report cover can carry a map. On a build configured
-with a Google Maps key and a device with Google Play Services, it passes the
-full coordinates to the Google Maps SDK for Android, centered at zoom level 17.
-No other map or tile provider is contacted; if the Google Maps SDK is
-unavailable, JobStamp renders no map at all.</p>
-<p>The map setting in "Stamp &amp; content" controls this: when the map is turned
-off, JobStamp neither prefetches nor renders map images for the stamp.
-Separately, opening a photo or project map screen renders the stored
-photo/project area with the Google Maps SDK and lets you pan and zoom. You can
-prevent new camera-location, reverse-geocode, and map requests by denying or
-revoking location permission, and you can avoid opening map screens if you do
-not want stored location areas sent to Google.</p>
+<p><strong>Google Maps is the only map provider JobStamp uses. There is no
+second map service and no fallback between providers.</strong> When you take a
+photo with the "Map in stamp" setting on, JobStamp asks the Google Maps SDK for
+a small map snapshot of that photo's full coordinates, centered at zoom level
+17, to draw inside the stamp. The stamp job waits up to 1.5 seconds for that
+snapshot to arrive or finish rendering; if it is not ready in time, JobStamp
+renders the stamp without a map (the timestamp-only layout) rather than delay
+the photo. Separately, opening a stored photo's or a project's interactive map
+screen sends that photo's or project's saved coordinates to the Google Maps SDK
+to draw a pannable, zoomable map.</p>
+<p>While the camera viewfinder is open and "Map in stamp" is on, JobStamp also
+pre-requests that same map snapshot ahead of time: as your location updates, it
+sends the coordinates of your current ~111-metre location cell to the Google
+Maps SDK so a snapshot is already on the device by the time you take a photo
+there, rather than only starting that request after the shutter. This
+pre-request repeats at most once per cell you enter, plus, if you stay in one
+place after moving a longer distance, one more round for the cell you settled in
+and its immediate neighbors. Turning "Map in stamp" off stops these pre-requests
+immediately, in addition to the capture-time request described above.</p>
+<p>On a build with no Google Maps API key configured, or on a device without
+Google Play services, JobStamp uses an on-device placeholder instead: no map
+request of any kind is made, every stamp uses its no-map layout, and the
+interactive map screens show no map surface.</p>
+<p>The "Map in stamp" setting controls whether your location is sent to Google
+Maps during camera use at all: with it off, neither the viewfinder's periodic
+pre-request described above nor the stamp job's capture-time snapshot lookup
+sends any coordinates, so no snapshot request is made. Opening a stored photo's
+or a project's map screen is a separate, user-triggered action and is not
+controlled by that setting. You can prevent camera-location, reverse-geocode,
+and capture-time and pre-request map requests together by denying or revoking
+location permission; you can avoid a stored-location map request by not opening
+a photo's or project's map screen.</p>
 <p>Map and Geocoder providers receive network information such as an IP address.
 The Google Maps SDK also automatically collects request and device metadata,
-SDK/build information, stack traces and crash metrics from SDK code, an
-Internal Usage Attribution Identifier, and a Maps SDK-specific pseudonymous
-identifier. Because JobStamp invokes the Map Camera APIs, Google may also
-collect map camera events. Google states that it uses these data to maintain
-and improve Google services.</p>
-<p>Google's current Maps Platform terms state that Google receives and may retain
-IP addresses and latitude/longitude coordinates and that Google and the app
-publisher act under controller-to-controller data protection terms. Use of
-Google Maps features is also subject to the
-<a href="https://maps.google.com/help/terms_maps/">Google Maps End User Additional Terms</a>
-and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
-
+SDK/build information, stack traces and crash metrics from SDK code, an Internal
+Usage Attribution Identifier, and a Maps SDK-specific pseudonymous identifier.
+Because JobStamp invokes the Map Camera APIs, Google may also collect map camera
+events. Google states that it uses these data to maintain and improve Google
+services.</p>
+<p>Google's current Maps Platform terms state that Google receives and may
+retain IP addresses and latitude/longitude coordinates and that Google and the
+app publisher act under controller-to-controller data protection terms. Use of
+Google Maps features is also subject to the <a
+href="https://maps.google.com/help/terms_maps/">Google Maps End User Additional
+Terms</a> and the <a href="https://policies.google.com/privacy">Google Privacy
+Policy</a>.</p>
 <h2>Google Drive (optional, Pro)</h2>
-<p>Pro subscribers can connect their own Google Drive account from Settings &rarr;
-Storage. Nothing is uploaded unless you connect an account. When you do,
-JobStamp asks Google only for the <code>drive.file</code> permission, which
-lets it create and update the files it creates itself and gives it no access to
-the rest of your Drive. JobStamp then copies stamped photos and PDF reports into
-a <code>JobStamp/&lt;project&gt;/</code> folder in your Drive, directly from
-your device to Google's servers over an encrypted connection. JobStamp has no
-server of its own in this path and never receives your files or your Google
-credentials; the access token Google issues stays in the app's memory.</p>
-<p>Uploads run while the app is open and, by default, only on Wi-Fi. Deleting a
-photo in JobStamp does not delete the copy in your Drive. You can disconnect at
-any time from the same screen, which clears the connection and the upload queue
-on the device; to withdraw the permission on Google's side, remove JobStamp
-under <a href="https://myaccount.google.com/permissions">Google Account &rarr;
-Third-party access</a>. Files stored in your Drive are governed by the
-<a href="https://policies.google.com/privacy">Google Privacy Policy</a> and
-Google Drive's own terms.</p>
-
+<p>JobStamp can upload your stamped photos and PDF reports to your own Google
+Drive. This is off until you turn it on in Settings ▸ Storage, and it is part of
+the Pro subscription.</p>
+<p>When you connect it, Google shows you its own account picker and permission
+screen. JobStamp asks for one permission and no other:
+<code>https://www.googleapis.com/auth/drive.file</code>. That permission lets an
+app see and manage only the files it created itself. JobStamp therefore cannot
+read, list or change anything else in your Google Drive — not your documents,
+not your other photos, not your folders.</p>
+<p>JobStamp does not create an account, does not sign you in, and does not ask
+for offline access or a refresh token. The short-lived access token Google
+issues is held in memory only, for as long as an upload is running; it is never
+written to the app's database, its settings, a file, or a log. Your account's
+e-mail address is read once, so the Settings screen can tell you which account
+you connected, and it stays on your device.</p>
+<p>What is uploaded: stamped photos and PDF reports, into a
+<code>JobStamp</code> folder in your Drive with one subfolder per project. What
+is not uploaded: your original unstamped photos, the app's database, and your
+settings.</p>
+<p>Uploads run only while JobStamp is open — there is no background service —
+and, unless you turn "Wi-Fi only" off, only over an unmetered connection. Files
+already uploaded belong to you and stay in your Drive: disconnecting removes
+only JobStamp's local queue and its record of the folders. Deleting a photo
+inside JobStamp does not delete it from your Drive. JobStamp does not revoke its
+own access; to remove it completely, use the permissions page of your Google
+account, which the Settings screen links to.</p>
 <h2>Billing and subscriptions</h2>
 <p>If you buy or restore a subscription, Google Play processes the payment.
 JobStamp uses RevenueCat to validate subscription status. RevenueCat receives
 the Google Play purchase token and an anonymous app user ID and retains purchase
-information needed to validate and restore entitlement status. JobStamp does
-not give RevenueCat a JobStamp account name, email address, or photo/project
+information needed to validate and restore entitlement status. JobStamp does not
+give RevenueCat a JobStamp account name, email address, or photo/project
 content.</p>
-<p>RevenueCat's privacy policy is available at
-<a href="https://www.revenuecat.com/privacy">www.revenuecat.com/privacy</a>.</p>
-
-<h2>Crash and diagnostic information</h2>
-<p>JobStamp does not include a dedicated crash-reporting SDK. However, when the
-Google Maps SDK is invoked, that SDK may collect stack traces for crashes in
-SDK code, crash metrics, diagnostics, request/device metadata, and its
-pseudonymous SDK identifier as described above. Separately, standard Google
-Play system reporting (Play Vitals) may provide Google with crash or ANR
-statistics from devices whose users enabled Android usage and diagnostics
+<p>RevenueCat's privacy policy is available at <a
+href="https://www.revenuecat.com/privacy">www.revenuecat.com/privacy</a>.</p>
+<h2>Usage statistics and crash reports</h2>
+<p>JobStamp sends anonymous usage statistics to <strong>Google Firebase
+Analytics</strong> so we can see which parts of the app are used and where they
+fail. Each event carries only a screen or event name, bucketed counts and
+durations, the app version, the app language, and whether you are on Free or
+Pro.</p>
+<p>These statistics never carry a photo, a coordinate, an address, a project,
+report or note name, a staff name, a file path, an evidence hash, an exact time,
+or a device or advertising identifier. That is a property of the app, not a
+promise about our intentions: the events are defined as a closed set of types
+with no free-form text field, and an automated test fails the build if any of
+those values is even named in that code.</p>
+<p>Whether these statistics are collected depends on where you are. In the
+European Economic Area, the United Kingdom and Türkiye they stay
+<strong>off</strong> until you switch them on. Everywhere else they start on, we
+tell you so in the app, and you can switch them off with one tap. The switch is
+in Settings ▸ Privacy and it applies from the moment you use it. Nothing is
+collected before you have seen that choice, and nothing is held back to be sent
+later. Google Analytics deletes event-level and user-level data after the
+retention period set on the property, which for JobStamp is two months.</p>
+<p>Crash reports go to <strong>Firebase Crashlytics</strong> so that a crash can
+be found and fixed. A report contains the stack trace, your device model and
+Android version, the app state at the moment of the crash, and an installation
+identifier used to count how many devices a crash affects. It contains no
+photos, no location, and no text you typed. Crash reporting is not covered by
+the switch above, because the most valuable crashes happen before the app can
+ask anything; Google deletes this data after 90 days.</p>
+<p>JobStamp does not collect the Android Advertising ID. The permission for it
+is removed from the app before it is built, and an automated gate fails the
+build if it reappears.</p>
+<p>Separately, when the Google Maps SDK is invoked, that SDK may collect stack
+traces for crashes in SDK code, crash metrics, diagnostics, request/device
+metadata, and its pseudonymous SDK identifier as described above. Standard
+Google Play system reporting (Play Vitals) may also provide Google with crash or
+ANR statistics from devices whose users enabled Android usage and diagnostics
 sharing.</p>
-<p>For more information, see the
-<a href="https://developers.google.com/maps/documentation/android-sdk/play-data-disclosure">Maps SDK data disclosure</a>
-and <a href="https://support.google.com/googleplay/android-developer/answer/9859174">Google Play crash and ANR help</a>.</p>
-
+<p>For more information, see the <a
+href="https://firebase.google.com/docs/android/play-data-disclosure">Firebase
+data disclosure</a>, the <a
+href="https://support.google.com/analytics/answer/11582702">Google Analytics for
+Firebase SDK disclosure</a>, the <a
+href="https://developers.google.com/maps/documentation/android-sdk/play-data-disclosure">Maps
+SDK data disclosure</a> and <a
+href="https://support.google.com/googleplay/android-developer/answer/9859174">Google
+Play crash and ANR help</a>.</p>
 <h2>Retention and deletion</h2>
 <p>On the free tier, JobStamp keeps photo originals on the device for at least 7
 days after capture and removes an original only after its stamped copy has been
 saved to the device gallery. Pro keeps originals on the device. You can delete
 local data with JobStamp's deletion controls or remove the app and its private
 data by uninstalling it.</p>
+<p>To stop usage statistics, switch them off in Settings ▸ Privacy; collection
+ends immediately. Crash reports are deleted by Google after 90 days, and
+analytics data after the two-month retention period described above.</p>
 <p>For a request concerning billing data held through RevenueCat or data that we
-can reasonably link to JobStamp's provider records, contact
-<a href="mailto:jobstampapp@gmail.com">jobstampapp@gmail.com</a>. We will process a verifiable
-request where identification is possible. Google also applies its own retention
-and deletion rules; its policies linked above explain the rights and controls it
-offers.</p>
-
+can reasonably link to JobStamp's provider records, contact <a
+href="mailto:jobstampapp@gmail.com">jobstampapp@gmail.com</a>. We will process a
+verifiable request where identification is possible. Google also applies its own
+retention and deletion rules; the policies linked above explain the rights and
+controls it offers.</p>
 <h2>Children</h2>
 <p>JobStamp is not directed at children.</p>
-
 <h2>Changes to this policy</h2>
 <p>We may update this Privacy Policy when JobStamp's data practices change. We
-will post the updated policy at
-<a href="https://jobstamp.github.io/privacy.html">https://jobstamp.github.io/privacy.html</a> and update the effective date.</p>
-
+will post the updated policy at <a
+href="https://jobstamp.github.io/privacy.html">https://jobstamp.github.io/privacy.html</a>
+and update the effective date.</p>
 <h2>Contact</h2>
-<p>For privacy questions or deletion requests, contact
-<a href="mailto:jobstampapp@gmail.com">jobstampapp@gmail.com</a>.</p>
-
+<p>For privacy questions or deletion requests, contact <a
+href="mailto:jobstampapp@gmail.com">jobstampapp@gmail.com</a>.</p>
 <footer>
   JobStamp — Android package <code>com.jobstamp.android</code> ·
   <a href="./">Home</a>
