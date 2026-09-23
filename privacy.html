@@ -71,7 +71,8 @@ accounts, no sign-in and no way to verify who anybody is: a staff name is a
 label you chose, not an identity we confirmed.</p>
 <p>Cloud backup of JobStamp app data is disabled. Android may copy app data
 during a direct device-to-device migration to a new phone; that is not an upload
-to a JobStamp server.</p>
+to a JobStamp server. The usage-statistics and crash-report identifiers are not
+copied: the new phone starts with new ones.</p>
 <h2>Location, address, and map requests</h2>
 <p>If you grant location permission while the camera is open, JobStamp obtains a
 device location fix. To produce an address, it may pass the full latitude and
@@ -186,7 +187,10 @@ Android version, the app state at the moment of the crash, and an installation
 identifier used to count how many devices a crash affects. It contains no
 photos, no location, and no text you typed. Crash reporting is not covered by
 the switch above, because the most valuable crashes happen before the app can
-ask anything; Google deletes this data after 90 days.</p>
+ask anything; Google deletes this data after 90 days. The separate per-launch
+session signal that normally ships with Crashlytics (Firebase Sessions) is
+switched off, so nothing is reported on each app start outside the switch
+above.</p>
 <p>JobStamp does not collect the Android Advertising ID. The permission for it
 is removed from the app before it is built, and an automated gate fails the
 build if it reappears.</p>
