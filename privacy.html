@@ -41,19 +41,19 @@
 <header>
   <p class="brand">JobStamp for Android</p>
   <h1>Privacy Policy</h1>
-  <span class="eff">Effective date: 22 September 2026</span>
+  <span class="eff">Effective date: 23 September 2026</span>
 </header>
 <p>JobStamp is a GPS timestamp camera and field-report app. This Privacy Policy
 explains what stays on your device and what is sent to service providers when
 you use network-backed features.</p>
 <h2>Information stored on your device</h2>
 <p>JobStamp stores photos, stamped copies, PDF reports, location evidence, and
-project data on your device. JobStamp has no server of its own and never uploads
-your photos, reports, or project content to one. It has no account system and no
-advertising SDK, and it shows no ads. It does send anonymous usage statistics
-and crash reports, which are described under "Usage statistics and crash
-reports" below; those never contain your photos, your location, or anything you
-typed.</p>
+project data on your device. JobStamp has no server of its own and never
+uploads your photos, reports, or project content to one. It has no account
+system and no advertising SDK, and it shows no ads. It does send usage
+statistics and crash reports, which are described under "Usage statistics and
+crash reports" below; those never contain your photos, the GPS location of your
+photos, or anything you typed.</p>
 <p>If you choose to connect Google Drive (see "Google Drive" below), JobStamp
 uploads stamped photos and PDF reports to <em>your own</em> Google Drive
 account. That is the only case in which content leaves your device
@@ -153,44 +153,61 @@ inside JobStamp does not delete it from your Drive. JobStamp does not revoke its
 own access; to remove it completely, use the permissions page of your Google
 account, which the Settings screen links to.</p>
 <h2>Billing and subscriptions</h2>
-<p>If you buy or restore a subscription, Google Play processes the payment.
-JobStamp uses RevenueCat to validate subscription status. RevenueCat receives
-the Google Play purchase token and an anonymous app user ID and retains purchase
-information needed to validate and restore entitlement status. JobStamp does not
-give RevenueCat a JobStamp account name, email address, or photo/project
-content.</p>
+<p>Each time the app starts, JobStamp asks RevenueCat whether this install has an
+active subscription. RevenueCat receives a random app user ID generated on your
+device, basic device and app information, your IP address and, when you buy or
+restore, the Google Play purchase token. If you buy or restore a subscription,
+Google Play processes the payment, and RevenueCat retains the purchase
+information needed to validate and restore entitlement status.</p>
+<p>While usage statistics are on, JobStamp also gives RevenueCat the Google
+Analytics app-instance ID so the subscription events RevenueCat reports to
+Google Analytics can be matched with the usage statistics; turning statistics
+off removes it from RevenueCat. JobStamp does not give RevenueCat a JobStamp
+account name, email address, or photo/project content.</p>
 <p>RevenueCat's privacy policy is available at <a
 href="https://www.revenuecat.com/privacy">www.revenuecat.com/privacy</a>.</p>
 <h2>Usage statistics and crash reports</h2>
-<p>JobStamp sends anonymous usage statistics to <strong>Google Firebase
-Analytics</strong> so we can see which parts of the app are used and where they
-fail. Each event carries only a screen or event name, bucketed counts and
-durations, the app version, the app language, and whether you are on Free or
-Pro.</p>
-<p>These statistics never carry a photo, a coordinate, an address, a project,
-report or note name, a staff name, a file path, an evidence hash, an exact time,
-or a device or advertising identifier. That is a property of the app, not a
+<p>JobStamp sends usage statistics to <strong>Google Firebase Analytics</strong>
+so we can see which parts of the app are used and where they fail. The app
+itself sends only a screen or event name, bucketed counts and durations, the
+app version, your language and region setting, and whether you are on Free or
+Pro. Google adds to every event the time it happened, your device model and
+Android version, an approximate location derived from your IP address, the
+Firebase installation ID and a random app-instance ID. Once statistics are on,
+Google Analytics also records which Google Play store link or campaign led to
+the install (the Play install referrer). This is not an advertising identifier.</p>
+<p>These statistics are pseudonymous, not anonymous: they are tied to that random
+app-instance ID, never to your name. They never carry a photo, a coordinate, an
+address, a project, report or note name, a staff name, a file path, an evidence
+hash, or the advertising identifier. That is a property of the app, not a
 promise about our intentions: the events are defined as a closed set of types
 with no free-form text field, and an automated test fails the build if any of
 those values is even named in that code.</p>
 <p>Whether these statistics are collected depends on where you are. In the
-European Economic Area, the United Kingdom and Türkiye they stay
-<strong>off</strong> until you switch them on. Everywhere else they start on, we
-tell you so in the app, and you can switch them off with one tap. The switch is
-in Settings ▸ Privacy and it applies from the moment you use it. Nothing is
-collected before you have seen that choice, and nothing is held back to be sent
-later. Google Analytics deletes event-level and user-level data after the
-retention period set on the property, which for JobStamp is two months.</p>
+European Economic Area, the United Kingdom and Türkiye — as reported by your
+mobile network, otherwise by your SIM card — they stay <strong>off</strong>
+until you switch them on, and they also stay off on a phone that reports neither (for
+example a Wi-Fi-only tablet), whatever its region setting. Everywhere else they
+start on: after your first photo the app shows a notice that says so, with a
+"Turn off" button, and collection begins only once that notice has been on
+screen. You can switch them off any time in Settings ▸ Privacy, and that
+applies from the moment you use it. Nothing is collected before you have seen
+that choice, and nothing is held back to be sent later. Google Analytics
+deletes event-level and user-level data after the retention period set on the
+property, which for JobStamp is two months.</p>
 <p>Crash reports go to <strong>Firebase Crashlytics</strong> so that a crash can
 be found and fixed. A report contains the stack trace, your device model and
 Android version, the app state at the moment of the crash, and an installation
-identifier used to count how many devices a crash affects. It contains no
-photos, no location, and no text you typed. Crash reporting is not covered by
-the switch above, because the most valuable crashes happen before the app can
-ask anything; Google deletes this data after 90 days. The separate per-launch
-session signal that normally ships with Crashlytics (Firebase Sessions) is
-switched off, so nothing is reported on each app start outside the switch
-above.</p>
+identifier used to count how many devices a crash affects; while usage
+statistics are on, it also includes the last few usage events before the crash.
+It contains no photos, no location, and no text you typed. Crash reporting is
+not covered by the switch above, because the most valuable crashes happen
+before the app can ask anything; Google deletes this data after 90 days. The
+separate session signal that normally ships with Crashlytics (Firebase
+Sessions) is switched off. Crashlytics itself still contacts Google from time
+to time when the app starts, to fetch its settings and send any pending crash
+report; that request carries its installation identifier, your device model and
+Android version, and no usage data.</p>
 <p>JobStamp does not collect the Android Advertising ID. The permission for it
 is removed from the app before it is built, and an automated gate fails the
 build if it reappears.</p>
